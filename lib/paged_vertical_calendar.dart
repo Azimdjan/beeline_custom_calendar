@@ -234,7 +234,6 @@ class _PagedVerticalCalendarState extends State<PagedVerticalCalendar> {
 
   EdgeInsets _getDownListPadding() {
     final double paddingTop = hideUp ? widget.listPadding.top : 0;
-    print("Hello World: ${widget.listPadding.bottom}");
     return EdgeInsets.fromLTRB(widget.listPadding.left, paddingTop,
         widget.listPadding.right, widget.listPadding.bottom);
   }
@@ -328,7 +327,7 @@ class _MonthView extends StatelessWidget {
       validDates.isNotEmpty ? validDates.first.weekday : 0,
       startWeekWithSunday,
     );
-
+    print("Hellow World");
     return Column(
       children: <Widget>[
         /// display the default month header if none is provided
@@ -347,7 +346,7 @@ class _MonthView extends StatelessWidget {
           ),
           itemCount: validDates.length + blankSpaces,
           itemBuilder: (BuildContext context, int index) {
-            if (index < blankSpaces) return const SizedBox();
+            if (index < blankSpaces) return const SizedBox.shrink();
 
             final date = validDates[index - blankSpaces];
             return AspectRatio(
