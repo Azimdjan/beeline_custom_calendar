@@ -45,7 +45,7 @@ class PagedVerticalCalendar extends StatefulWidget {
     this.listPadding = EdgeInsets.zero,
     this.startWeekWithSunday = false,
     this.weekdaysToHide = const [],
-  }) : this.initialDate = initialDate ?? DateTime.now().removeTime();
+  }) : initialDate = initialDate ?? DateTime.now().removeTime();
 
   /// the [DateTime] to start the calendar from, if no [startDate] is provided
   /// `DateTime.now()` will be used
@@ -161,13 +161,15 @@ class _PagedVerticalCalendarState extends State<PagedVerticalCalendar> {
   }
 
   void paginationStatusUp(PagingStatus state) {
-    if (state == PagingStatus.completed)
+    if (state == PagingStatus.completed) {
       return widget.onPaginationCompleted?.call(PaginationDirection.up);
+    }
   }
 
   void paginationStatusDown(PagingStatus state) {
-    if (state == PagingStatus.completed)
+    if (state == PagingStatus.completed) {
       return widget.onPaginationCompleted?.call(PaginationDirection.down);
+    }
   }
 
   /// fetch a new [Month] object based on the [pageKey] which is the Nth month
@@ -183,7 +185,7 @@ class _PagedVerticalCalendarState extends State<PagedVerticalCalendar> {
       );
 
       WidgetsBinding.instance.addPostFrameCallback(
-            (_) => widget.onMonthLoaded?.call(month.year, month.month),
+        (_) => widget.onMonthLoaded?.call(month.year, month.month),
       );
 
       final newItems = [month];
@@ -212,7 +214,7 @@ class _PagedVerticalCalendarState extends State<PagedVerticalCalendar> {
       );
 
       WidgetsBinding.instance.addPostFrameCallback(
-            (_) => widget.onMonthLoaded?.call(month.year, month.month),
+        (_) => widget.onMonthLoaded?.call(month.year, month.month),
       );
 
       final newItems = [month];
@@ -232,6 +234,7 @@ class _PagedVerticalCalendarState extends State<PagedVerticalCalendar> {
 
   EdgeInsets _getDownListPadding() {
     final double paddingTop = hideUp ? widget.listPadding.top : 0;
+    print("Hello World: ${widget.listPadding.bottom}");
     return EdgeInsets.fromLTRB(widget.listPadding.left, paddingTop,
         widget.listPadding.right, widget.listPadding.bottom);
   }
@@ -328,7 +331,6 @@ class _MonthView extends StatelessWidget {
 
     return Column(
       children: <Widget>[
-
         /// display the default month header if none is provided
         monthBuilder?.call(context, month.month, month.year) ??
             _DefaultMonthView(
@@ -337,7 +339,7 @@ class _MonthView extends StatelessWidget {
             ),
         GridView.builder(
           addRepaintBoundaries: false,
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           padding: EdgeInsets.zero,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -345,21 +347,20 @@ class _MonthView extends StatelessWidget {
           ),
           itemCount: validDates.length + blankSpaces,
           itemBuilder: (BuildContext context, int index) {
-            if (index < blankSpaces) return SizedBox();
+            if (index < blankSpaces) return const SizedBox();
 
             final date = validDates[index - blankSpaces];
             return AspectRatio(
               aspectRatio: 1.0,
               child: InkWell(
-                onTap: onDayPressed == null ? null : () =>
-                    onDayPressed!(date),
+                onTap: onDayPressed == null ? null : () => onDayPressed!(date),
                 child: dayBuilder?.call(context, date) ??
                     _DefaultDayView(date: date),
               ),
             );
           },
         ),
-        SizedBox(height: 20),
+        const SizedBox(height: 20),
       ],
     );
   }
@@ -392,10 +393,7 @@ class _DefaultMonthView extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Text(
         '${months[month - 1]} $year',
-        style: Theme
-            .of(context)
-            .textTheme
-            .titleLarge,
+        style: Theme.of(context).textTheme.titleLarge,
       ),
     );
   }
