@@ -254,7 +254,6 @@ class _PagedVerticalCalendarState extends State<PagedVerticalCalendar> {
                     widget.listPadding.top, widget.listPadding.right, 0),
                 sliver: PagedSliverList(
                   pagingController: _pagingReplyUpController,
-                  shrinkWrapFirstPageIndicators: true,
                   builderDelegate: PagedChildBuilderDelegate<Month>(
                     itemBuilder:
                         (BuildContext context, Month month, int index) {
@@ -275,7 +274,6 @@ class _PagedVerticalCalendarState extends State<PagedVerticalCalendar> {
               padding: _getDownListPadding(),
               sliver: PagedSliverList(
                 pagingController: _pagingReplyDownController,
-                shrinkWrapFirstPageIndicators: true,
                 builderDelegate: PagedChildBuilderDelegate<Month>(
                   itemBuilder: (BuildContext context, Month month, int index) {
                     return _MonthView(
