@@ -327,7 +327,6 @@ class _MonthView extends StatelessWidget {
       validDates.isNotEmpty ? validDates.first.weekday : 0,
       startWeekWithSunday,
     );
-    print("Hellow World");
     return Column(
       children: <Widget>[
         /// display the default month header if none is provided
@@ -359,7 +358,7 @@ class _MonthView extends StatelessWidget {
             );
           },
         ),
-        const SizedBox(height: 20),
+        // const SizedBox(height: 20),
       ],
     );
   }
